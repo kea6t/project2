@@ -146,6 +146,7 @@ router.get('/food/:id', (req, res) => {
 
       res.render('editfood', {
         food,
+        sessionuser: req.session.user_id,
         loggedIn: req.session.loggedIn
       });
     })
