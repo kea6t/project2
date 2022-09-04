@@ -116,6 +116,45 @@ router.get('/views/potluck', (req, res) => {
   });
 });
 
+router.get('/food/:id', (req, res) => {
+  Food.findOne({
+    where: {
+      id: req.params.id
+    },
+    attributes: [
+      'id',
+      'name',
+      'description',
+      'user_id',
+      'potluck_id'
+    ],
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'username']
+      }
+    ]
+  })
+    .then(dbFoodData => {
+      if (!dbFoodData) {
+        res.status(404).json({ message: 'No post found with this id' });
+        return;
+      }
+
+      const food = dbFoodData.get({ plain: true });
+      console.log(food);
+
+      res.render('editfood', {
+        food,
+        loggedIn: req.session.loggedIn
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 router.get('/login', (req, res) => {
   if (req.session.loggedIn) {
     res.redirect('/');
