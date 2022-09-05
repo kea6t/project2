@@ -36,9 +36,12 @@ router.get('/', (req, res) => {
     .then(dbPotluckData => {
       const potlucks = dbPotluckData.map(potluck => potluck.get({ plain: true }));
       console.log(potlucks);
+      const sessionuser = req.session.user_id;
+      console.log(sessionuser);
 
       res.render('homepage', {
         potlucks,
+        sessionuser,
         loggedIn: req.session.loggedIn
       });
     })
@@ -98,9 +101,12 @@ router.get('/potluck/:id', (req, res) => {
 
       const potluck = dbPotluckData.get({ plain: true });
       //console.log(potluck);
+      const sessionuser = req.session.user_id;
+      console.log(sessionuser);
 
       res.render('dashboard', {
         potluck,
+        sessionuser,
         loggedIn: req.session.loggedIn
       });
     })
@@ -143,10 +149,11 @@ router.get('/food/:id', (req, res) => {
 
       const food = dbFoodData.get({ plain: true });
       console.log(food);
+      const sessionuser = req.session.user_id;
 
       res.render('editfood', {
         food,
-        sessionuser: req.session.user_id,
+        sessionuser,
         loggedIn: req.session.loggedIn
       });
     })

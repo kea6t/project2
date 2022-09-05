@@ -7,7 +7,7 @@ const testCommentFunction = async (event) => {
     const potluck_id = window.location.toString().split('/')[
         window.location.toString().split('/').length - 1
       ];
-    const user_id = 1;
+    const user_id = sessionuser;
     if ( comment_text ) {
         const response = await fetch('/api/comments', {
             method: 'POST',

@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
         include: [
             {
                 model: Potluck,
-                attributes: ['id', 'name', 'description', 'schedule_date'],
+                attributes: ['id', 'name', 'description', 'startDate'],
                 include: {
                     model: User,
                     attributes: ['username']
@@ -49,12 +49,12 @@ router.get('/:id', (req, res) => {
             'created_at',
             'user_id',
             'description'
-            [sequelize.literal('(SELECT COUNT(*) FROM food WHERE food.id = food.potluck_id)')]
+            //[sequelize.literal('(SELECT COUNT(*) FROM food WHERE food.id = food.potluck_id)')]
         ],
         include: [
             {
                 model: Potluck,
-                attributes: ['id', 'name', 'description', 'schedule_date'],
+                attributes: ['id', 'name', 'description', 'startDate'],
                 include: {
                     model: User,
                     attributes: ['username']
@@ -86,7 +86,7 @@ router.post('/', (req, res) => {
             name: req.body.name,
             description: req.body.description,
             potluck_id: req.body.potluck_id,
-            user_id: req.session.user_id
+            user_id: req.body.user_id
             //foodtype: '1',
             //user_id: req.session.user_id
         })

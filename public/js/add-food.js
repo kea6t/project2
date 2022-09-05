@@ -8,8 +8,9 @@ const testFunction = async (event) => {
     const potluck_id = window.location.toString().split('/')[
         window.location.toString().split('/').length - 1
       ];
+    //const user_id = parseInt(sessionuser);
     const user_id = 1;
-
+    //console.log(sessionuser);
 
     if (name && description) {
         const response = await fetch('/api/foods', {
@@ -17,7 +18,7 @@ const testFunction = async (event) => {
             body: JSON.stringify({ name, description, potluck_id, user_id }),
             headers: { 'Content-Type': 'application/json'},
         });
-        //console.log(response);
+        console.log(response);
 
         if (response.ok) {
             document.location.reload();
